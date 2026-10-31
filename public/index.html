@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AuthTrack</title>
+<style>
+:root{--ink:#1d4a55;--lime:#e8f26a;--aqua:#5be3d9;--amber:#f3c960;--soft:#d6f1f3;--mut:#7b8a90}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:28px;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);
+background:linear-gradient(110deg,#b9e1e6,#e3eef0 50%,#ecbfc0)}
+.shell{max-width:1280px;margin:auto;background:#fff;border-radius:32px;padding:26px 30px 32px;box-shadow:0 20px 60px #0002}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font-size:26px;font-weight:700;display:flex;align-items:center;gap:10px}
+.logo i{width:34px;height:34px;border-radius:12px;background:var(--ink);display:grid;place-items:center}
+.logo i:after{content:"";width:14px;height:14px;border-radius:50%;background:var(--lime)}
+nav{display:flex;gap:4px;padding:5px;border:1px solid #e6ecee;border-radius:40px}
+nav button{border:0;background:none;padding:10px 18px;border-radius:30px;font:inherit;color:var(--ink);cursor:pointer}
+nav button.on{background:var(--ink);color:#fff}
+.hello{margin:26px 0 18px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px}
+.hello small{color:var(--mut);font-size:15px}.hello h1{margin:2px 0 0;font-size:40px}
+.btn{border:0;border-radius:30px;padding:13px 22px;background:var(--ink);color:#fff;font:inherit;cursor:pointer}
+.btn.alt{background:#eef3f4;color:var(--ink)}
+.grid{display:grid;grid-template-columns:300px 1fr 330px;gap:20px}
+.card{border:1px solid #e9eef0;border-radius:28px;padding:20px 22px;background:#fff}
+.stat{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.stat .ic{width:48px;height:48px;border-radius:50%;background:var(--lime);display:grid;place-items:center}
+.ic svg,.ib svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ib svg{width:15px;height:15px}.ib{display:inline-grid;place-items:center;vertical-align:middle}
+[hidden]{display:none!important}
+.stat small{color:var(--mut)}.stat b{display:block;font-size:24px}
+.stat .tag{margin-left:auto;background:#f3f6f7;border-radius:14px;padding:8px 12px;font-size:12px;color:var(--mut)}
+.topic{height:170px;border-radius:26px;background:var(--ink);color:#fff;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;font-size:22px;line-height:1.2;
+background-image:radial-gradient(circle at 80% 20%,#f3c960 0,#f3c96000 40%),radial-gradient(circle at 60% 10%,#5be3d9 0,#5be3d900 45%)}
+.topic em{font-style:normal;color:var(--lime)}
+h3{margin:0 0 14px;font-weight:500;font-size:22px}
+.chart{display:flex;align-items:flex-end;gap:14px;height:240px;padding-top:30px}
+.chart div{flex:1;text-align:center;font-size:13px;color:var(--mut);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.chart span{display:block;background:var(--soft);border-radius:30px;position:relative;transition:.3s}
+.chart .max span{background:var(--aqua)}
+.chart .max span:before{content:attr(data-n);position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:var(--amber);color:var(--ink);padding:3px 10px;border-radius:14px;font-size:12px;font-weight:600}
+.chart p{margin:8px 0 0}
+.up{display:flex;flex-direction:column;gap:12px}
+.slot{border-radius:30px;padding:12px 18px;background:var(--aqua)}
+.slot.late{background:var(--amber)}.slot.ok{background:#eef3f4}
+.slot b{display:block;font-size:15px}.slot small{opacity:.75}
+.tbl{margin-top:20px;overflow-x:auto}
+.bar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.bar input{padding:10px 16px;border:1px solid #e1e8ea;border-radius:30px;font:inherit;min-width:200px}
+.chip{border:0;background:#eef3f4;border-radius:20px;padding:8px 14px;cursor:pointer;font:inherit;color:var(--ink)}
+.chip.on{background:var(--lime)}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th{text-align:left;font-size:12px;color:var(--mut);font-weight:500;padding:8px 6px;text-transform:uppercase}
+td{padding:13px 6px;border-top:1px solid #f0f3f4;font-size:14px}
+.pill{padding:5px 13px;border-radius:14px;font-size:13px;display:inline-block}
+.Pending{background:#fbf0d2;color:#b8892a}.Approved{background:#d4f6f3;color:#1f9a92}
+.Denied{background:#fbdcdc;color:#c04a4a}.Appeal{background:#e5def8;color:#6a55b5}
+.ib{border:1px solid #e1e8ea;background:#fff;border-radius:50%;width:32px;height:32px;cursor:pointer;margin-right:4px}
+dialog{border:0;border-radius:28px;padding:26px;width:min(460px,92vw);box-shadow:0 20px 60px #0004}
+dialog::backdrop{background:#1d4a5566}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
+dialog input,dialog select,dialog textarea{width:100%;padding:10px 14px;border:1px solid #dfe7e9;border-radius:16px;font:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.empty{padding:24px;text-align:center;color:var(--mut)}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}body{padding:12px}.hello h1{font-size:30px}}
+</style></head><body>
+<div class="shell">
+<header>
+  <div class="logo"><i></i>AuthTrack</div>
+  <nav><button class="on" data-v="dash">Dashboard</button><button data-v="reqs">Requests</button></nav>
+  <button class="btn" id="add">+ New request</button>
+</header>
+<div class="hello"><div><small id="today"></small><h1>Good Morning!</h1></div>
+  <div><button class="btn alt" id="rst">Reset demo data</button> <button class="btn alt" id="exp">Export CSV ↗</button></div></div>
+
+<div class="grid" id="top">
+  <div>
+    <div class="card stat"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg></div><div><small>Total Requests</small><b id="s1"></b></div><span class="tag">All time</span></div>
+    <div class="card stat"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><small>Pending</small><b id="s2"></b></div><span class="tag">Open now</span></div>
+    <div class="card stat"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></div><div><small>Approval Rate</small><b id="s3"></b></div><span class="tag">Decided</span></div>
+    <div class="card stat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><div><small>Denied / Appeal</small><b id="s4"></b></div><span class="tag">Needs action</span></div>
+    <div class="topic">How can we cut<br><em>approval wait time</em> every week?</div>
+  </div>
+  <div class="card"><h3>Requests per Month</h3><div class="chart" id="chart"></div></div>
+  <div class="card"><h3>Upcoming Deadlines</h3><div class="up" id="up"></div></div>
+</div>
+
+<div class="card tbl">
+  <h3 id="tt">Recent Requests</h3>
+  <div class="bar"><input id="q" placeholder="Search case, payer, procedure…">
+    <span id="chips"></span></div>
+  <table><thead><tr><th>ID</th><th>Case</th><th>Payer</th><th>Procedure</th><th>Submitted</th><th>Due</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody id="tb"></tbody></table><div class="empty" id="none" hidden>No requests found.</div>
+</div>
+</div>
+
+<dialog id="dlg"><form method="dialog" id="f">
+  <h3 id="dt">New request</h3>
+  <label>Case alias (no patient names)</label><input name="alias" required placeholder="e.g. Case Q">
+  <div class="row2"><div><label>Payer</label><input name="payer" required></div>
+  <div><label>Status</label><select name="status"><option>Pending</option><option>Approved</option><option>Denied</option><option>Appeal</option></select></div></div>
+  <label>Procedure / Service</label><input name="procedure" required>
+  <div class="row2"><div><label>Submitted</label><input type="date" name="submitted" required></div>
+  <div><label>Payer deadline</label><input type="date" name="due" required></div></div>
+  <label>Notes</label><textarea name="notes" rows="2"></textarea>
+  <div class="acts"><button type="button" class="btn alt" id="cx">Cancel</button><button class="btn">Save</button></div>
+</form></dialog>
+
+<script>
+const $=s=>document.querySelector(s);
+const STAT=['All','Pending','Approved','Denied','Appeal'];
+let data=[],filter='All',editId=null,view='dash';
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=d=>new Date(d+'T00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Demo storage: runs fully in the browser (localStorage), so it works on static hosting like Vercel.
+   Swap this one function for real fetch() calls when you add a backend. */
+const KEY='authtrack-demo-v1';
+const day=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
+function seed(){
+  const payers=['Aetna','UnitedHealthcare','Cigna','Blue Cross','Medicare Adv.'];
+  const procs=['MRI Lumbar Spine','Physical Therapy x12','CT Abdomen','Sleep Study','Knee Arthroscopy','Biologic Rx'];
+  const st=['Approved','Pending','Denied','Appeal','Approved','Pending'];
+  return Array.from({length:14},(_,i)=>({id:'PA-'+(1001+i),alias:'Case '+String.fromCharCode(65+i),
+    payer:payers[i%5],procedure:procs[i%6],status:st[i%6],submitted:day(-(i*14+2)),due:day(i%6===1?i-3:-i),notes:''}));
+}
+let mem=null;
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(mem))}catch(e){}}
+function store(){
+  if(!mem){try{const d=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(d))mem=d}catch(e){}}
+  if(!mem){mem=seed();persist()}
+  return mem;
+}
+async function api(url,method='GET',body){
+  const d=store(),id=url.split('/')[3];
+  if(method==='POST'){
+    const n=d.reduce((m,r)=>Math.max(m,+r.id.split('-')[1]),1000)+1;
+    const r={...body,id:'PA-'+n};d.push(r);persist();return r;
+  }
+  if(method==='PUT'){const i=d.findIndex(r=>r.id===id);if(i>=0){d[i]={...d[i],...body,id};persist();return d[i]}return null}
+  if(method==='DELETE'){mem=d.filter(r=>r.id!==id);persist();return null}
+  return [...d];
+}
+async function load(){data=await api('/api/requests');render()}
+
+function render(){
+  $('#today').textContent='Hi, '+new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const c=s=>data.filter(r=>r.status===s).length, dec=c('Approved')+c('Denied');
+  $('#s1').textContent=data.length;$('#s2').textContent=c('Pending');
+  $('#s3').textContent=dec?Math.round(c('Approved')/dec*100)+'%':'–';
+  $('#s4').textContent=c('Denied')+c('Appeal');
+  // chart: last 7 months by submitted date
+  const now=new Date(),m=[];
+  for(let i=6;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    m.push({k:d.toISOString().slice(0,7),l:d.toLocaleString('en',{month:'short'}),n:0})}
+  data.forEach(r=>{const x=m.find(y=>y.k===r.submitted.slice(0,7));if(x)x.n++});
+  const mx=Math.max(1,...m.map(x=>x.n));
+  $('#chart').innerHTML=m.map(x=>`<div class="${x.n===mx&&x.n?'max':''}"><span data-n="${x.n}" style="height:${Math.max(8,x.n/mx*85)}%"></span><p>${x.l}</p></div>`).join('');
+  // deadlines
+  const open=data.filter(r=>['Pending','Appeal'].includes(r.status)).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,5);
+  $('#up').innerHTML=open.length?open.map(r=>{const late=r.due<today();
+    return `<div class="slot ${late?'late':''}"><b>${esc(r.alias)} · ${esc(r.payer)}</b><small>${late?'Overdue — ':'Due '}${fmt(r.due)} · ${esc(r.procedure)}</small></div>`}).join('')
+    :'<div class="slot ok"><b>All caught up</b></div>';
+  $('#chips').innerHTML=STAT.map(s=>`<button class="chip ${s===filter?'on':''}" data-s="${s}">${s}</button>`).join('');
+  const q=$('#q').value.toLowerCase();
+  const rows=data.filter(r=>(filter==='All'||r.status===filter)&&Object.values(r).join(' ').toLowerCase().includes(q))
+    .sort((a,b)=>b.submitted.localeCompare(a.submitted));
+  const list=view==='dash'?rows.slice(0,5):rows;
+  $('.bar').hidden=view==='dash';
+  $('#tt').textContent=view==='dash'?'Recent Requests':'All Prior Authorizations';
+  $('#none').hidden=list.length>0;
+  $('#tb').innerHTML=list.map(r=>`<tr><td>${r.id}</td><td>${esc(r.alias)}</td><td>${esc(r.payer)}</td><td>${esc(r.procedure)}</td>
+   <td>${fmt(r.submitted)}</td><td>${fmt(r.due)}</td><td><span class="pill ${r.status}">${r.status}</span></td>
+   <td><button class="ib" data-e="${r.id}" title="Edit"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="ib" data-d="${r.id}" title="Delete"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button></td></tr>`).join('');
+}
+
+function openForm(r){
+  editId=r?r.id:null;$('#dt').textContent=r?'Edit '+r.id:'New request';
+  const f=$('#f');f.reset();
+  const v=r||{submitted:today(),due:today(),status:'Pending'};
+  for(const k in v)if(f.elements[k])f.elements[k].value=v[k];
+  $('#dlg').showModal();
+}
+$('#add').onclick=()=>openForm();
+$('#cx').onclick=()=>$('#dlg').close();
+$('#f').onsubmit=async e=>{
+  const b=Object.fromEntries(new FormData(e.target));
+  editId?await api('/api/requests/'+editId,'PUT',b):await api('/api/requests','POST',b);
+  load();
+};
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('[data-s],[data-e],[data-d],[data-v]')||e.target;
+  if(t.dataset.s){filter=t.dataset.s;render()}
+  if(t.dataset.e)openForm(data.find(r=>r.id===t.dataset.e));
+  if(t.dataset.d&&confirm('Delete '+t.dataset.d+'?')){await api('/api/requests/'+t.dataset.d,'DELETE');load()}
+  if(t.dataset.v){view=t.dataset.v;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b===t));
+    $('#top').hidden=view==='reqs';$('.hello h1').textContent=view==='reqs'?'Requests':'Good Morning!';render()}
+});
+$('#q').oninput=render;
+$('#rst').onclick=()=>{if(confirm('Reset to sample data?')){mem=seed();persist();load()}};
+$('#exp').onclick=()=>{
+  const h=['id','alias','payer','procedure','submitted','due','status','notes'];
+  const csv=[h,...data.map(r=>h.map(k=>`"${String(r[k]??'').replace(/"/g,'""')}"`))].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='prior-auths.csv';a.click();
+};
+load();
+</script></body></html>

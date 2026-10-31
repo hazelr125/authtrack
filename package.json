@@ -1,0 +1,1 @@
+{"name":"authtrack","version":"1.0.0","private":true,"description":"Prior-authorization tracker demo for small practices","scripts":{"start":"npx serve public"}}

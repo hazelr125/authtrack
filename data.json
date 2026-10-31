@@ -1,0 +1,142 @@
+[
+  {
+    "id": "PA-1001",
+    "alias": "Case A",
+    "payer": "Aetna",
+    "procedure": "MRI Lumbar Spine",
+    "status": "Denied",
+    "submitted": "2026-10-29",
+    "due": "2026-10-31",
+    "notes": ""
+  },
+  {
+    "id": "PA-1002",
+    "alias": "Case B",
+    "payer": "UnitedHealthcare",
+    "procedure": "Physical Therapy x12",
+    "status": "Pending",
+    "submitted": "2026-10-15",
+    "due": "2026-10-29",
+    "notes": ""
+  },
+  {
+    "id": "PA-1003",
+    "alias": "Case C",
+    "payer": "Cigna",
+    "procedure": "CT Abdomen",
+    "status": "Denied",
+    "submitted": "2026-10-01",
+    "due": "2026-10-29",
+    "notes": ""
+  },
+  {
+    "id": "PA-1004",
+    "alias": "Case D",
+    "payer": "Blue Cross",
+    "procedure": "Sleep Study",
+    "status": "Appeal",
+    "submitted": "2026-09-17",
+    "due": "2026-10-28",
+    "notes": ""
+  },
+  {
+    "id": "PA-1005",
+    "alias": "Case E",
+    "payer": "Medicare Adv.",
+    "procedure": "Knee Arthroscopy",
+    "status": "Approved",
+    "submitted": "2026-09-03",
+    "due": "2026-10-27",
+    "notes": ""
+  },
+  {
+    "id": "PA-1006",
+    "alias": "Case F",
+    "payer": "Aetna",
+    "procedure": "Biologic Rx",
+    "status": "Pending",
+    "submitted": "2026-08-20",
+    "due": "2026-10-26",
+    "notes": ""
+  },
+  {
+    "id": "PA-1007",
+    "alias": "Case G",
+    "payer": "UnitedHealthcare",
+    "procedure": "MRI Lumbar Spine",
+    "status": "Approved",
+    "submitted": "2026-08-06",
+    "due": "2026-10-25",
+    "notes": ""
+  },
+  {
+    "id": "PA-1008",
+    "alias": "Case H",
+    "payer": "Cigna",
+    "procedure": "Physical Therapy x12",
+    "status": "Pending",
+    "submitted": "2026-07-23",
+    "due": "2026-11-04",
+    "notes": ""
+  },
+  {
+    "id": "PA-1009",
+    "alias": "Case I",
+    "payer": "Blue Cross",
+    "procedure": "CT Abdomen",
+    "status": "Denied",
+    "submitted": "2026-07-09",
+    "due": "2026-10-23",
+    "notes": ""
+  },
+  {
+    "id": "PA-1010",
+    "alias": "Case J",
+    "payer": "Medicare Adv.",
+    "procedure": "Sleep Study",
+    "status": "Appeal",
+    "submitted": "2026-06-25",
+    "due": "2026-10-22",
+    "notes": ""
+  },
+  {
+    "id": "PA-1011",
+    "alias": "Case K",
+    "payer": "Aetna",
+    "procedure": "Knee Arthroscopy",
+    "status": "Approved",
+    "submitted": "2026-06-11",
+    "due": "2026-10-21",
+    "notes": ""
+  },
+  {
+    "id": "PA-1012",
+    "alias": "Case L",
+    "payer": "UnitedHealthcare",
+    "procedure": "Biologic Rx",
+    "status": "Pending",
+    "submitted": "2026-05-28",
+    "due": "2026-10-20",
+    "notes": ""
+  },
+  {
+    "id": "PA-1013",
+    "alias": "Case M",
+    "payer": "Cigna",
+    "procedure": "MRI Lumbar Spine",
+    "status": "Approved",
+    "submitted": "2026-05-14",
+    "due": "2026-10-19",
+    "notes": ""
+  },
+  {
+    "id": "PA-1014",
+    "alias": "Case N",
+    "payer": "Blue Cross",
+    "procedure": "Physical Therapy x12",
+    "status": "Pending",
+    "submitted": "2026-04-30",
+    "due": "2026-11-10",
+    "notes": ""
+  }
+]
